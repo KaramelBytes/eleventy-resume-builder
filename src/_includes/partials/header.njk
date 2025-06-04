@@ -1,0 +1,32 @@
+{#
+  Partial: Site Header
+  Path: src/_includes/partials/header.njk
+  Description: Renders the main site header, which is sticky and includes profile information, site title, and primary navigation.
+  Data: 
+    - `personal.name` (from global data) for profile image alt text and site title.
+    - `title` (from page front matter or global data) as a fallback for site title.
+    - `navigation` (from global data `src/_data/navigation.js`) for navigation links.
+#}
+<header class="sticky-header">
+    {# The container div centers the header content and aligns it with the page layout. #}
+    <div class="container header-container">
+        {# Wraps the profile image and site title for layout purposes. #}
+        <div class="profile-wrapper">
+            <img class="profile-img" src="/assets/images/profile-placeholder.jpg" alt="{{ personal.name if personal else 'Profile Photo' }}" />
+        </div>
+
+        {# Button to toggle the mobile navigation menu. #}
+        {# `aria-label` provides an accessible name for screen readers. #}
+        <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">☰</button>
+
+        {# Main navigation menu. #}
+        <nav class="nav">
+            <ul class="nav__list">
+                {# Loop through navigation items provided by global navigation data. #}
+                {% for item in navigation.items %}
+                    <li><a href="{{ item.url }}">{{ item.text }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+</header>

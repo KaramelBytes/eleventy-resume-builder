@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page description for SEO. Uses a truncated version of the 'about me' section or the page title. -->
+    <meta name="description" content="{{ personal.about_me_markdown | striptags | truncate(160) if personal else title }}">
+    <!-- Author of the page. Uses the name from personal data or a placeholder. -->
+    <meta name="author" content="{{ personal.name if personal else 'Your Name Here' }}">
+    <!-- Instructs search engine crawlers to index and follow links on this page. -->
+    <meta name="robots" content="index, follow">
+    <!-- Theme color for the browser UI. -->
+    <meta name="theme-color" content="#333">
+
+    <!-- Open Graph meta tags for social media sharing. -->
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{{ personal.about_me_markdown | striptags | truncate(160) if personal else title }}">
+    <meta property="og:image" content="/assets/images/og-image.jpg">
+    <meta property="og:url" content="{{ site.url if site and site.url else '/' }}">
+
+    <!-- Favicon for the website. -->
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <!-- Link to the main stylesheet. -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+
+    <!-- Include structured data for SEO (e.g., JSON-LD). -->
+    {% include 'structured-data.njk' %}
+</head>
+<body>
+
+    <!-- Include the site header. -->
+    {% include 'partials/header.njk' %}
+
+    <!-- Main content area of the page. -->
+    <main>
+        {# Render hero section only on the homepage #}
+        {% if page.url == "/" %}
+            {% include "components/hero.njk" %}
+        {% endif %}
+
+        <div class="page-content">
+            <!-- The 'content' variable holds the rendered content from individual pages/posts. -->
+            <!-- The 'safe' filter is used to render HTML content without escaping it. -->
+            {{ content | safe }}
+        </div>
+    </main>
+
+<!-- Include the site footer. -->
+{% include 'partials/footer.njk' %}
+
+    <!-- "Go to Top" button for improved navigation on long pages. -->
+    <button id="go-to-top" class="go-to-top-btn" aria-label="Go to the top of the page">↑</button>
+
+    <!-- Load the main JavaScript file for client-side interactions. -->
+    <script src="/assets/js/main.js"></script>
+
+</body>
+</html>

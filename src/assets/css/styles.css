@@ -1,0 +1,543 @@
+/* General Styles */
+/* :root defines CSS variables for global use, promoting consistency and easier theming. */
+:root {
+    --primary-color: #2d2d2d; /* Dark gray, often used for text or primary UI elements */
+    --secondary-color: #4a90e2; /* Blue, often used for links, buttons, or accents */
+    --text-color: #333; /* Standard dark gray for body text */
+    --background-color: #ffffff; /* Standard white background */
+    --section-spacing: 2rem; /* Consistent vertical spacing between content sections */
+}
+
+html {
+    box-sizing: border-box;
+    scroll-padding-top: 84px; /* Corrected for 60px profile img + 24px header padding */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit; /* Inherit box-sizing from html element */
+}
+
+/* Basic body styling: sets default font, removes default margins/padding, and enables smooth scrolling. */
+body {
+    font-family: 'Inter', sans-serif; /* Modern sans-serif font stack */
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    scroll-behavior: smooth; /* Enables smooth scrolling for anchor links */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Utility class for a responsive, centered container. */
+.container {
+    width: 90%; /* Uses a percentage of the viewport width */
+    max-width: 1200px; /* Caps the maximum width for larger screens */
+    margin-left: auto; /* Centers the container horizontally */
+    margin-right: auto;
+    padding-left: 1rem; /* Horizontal padding to prevent content from touching screen edges */
+    padding-right: 1rem;
+}
+
+/* Ensures content in the <main> element is not obscured by the fixed/sticky header. */
+main {
+    /* The padding-top value should ideally match the height of the .sticky-header. */
+    padding-top: 84px; /* Corrected for 60px profile img + 24px header padding */
+}
+
+/* Styles for the main header, making it sticky at the top of the viewport. */
+.sticky-header {
+    position: fixed; /* Fixes the header to the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95); /* Semi-transparent white background */
+    backdrop-filter: blur(10px); /* Applies a blur effect to content behind the header */
+    z-index: 1000; /* Ensures the header stays on top of other content */
+    padding: 0.75rem 1rem; /* Vertical and horizontal padding */
+    transition: top 0.3s, background 0.3s; /* Smooth transitions for potential animations (e.g., hiding on scroll down) */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distributes space between logo/title and navigation */
+}
+
+/* Inner container for the header content, aligning with the general page container. */
+.header-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Ensures nav is to the right */
+}
+
+/* Wrapper for profile image in the header. */
+.profile-wrapper {
+    display: flex;
+    align-items: center;
+    /* gap: 1rem; */ /* No longer needed as title is removed */
+}
+
+/* Styling for the profile image in the header. */
+.profile-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+}
+
+/* Styling for the main site title in the header. */
+.header-title {
+    font-size: 1.75rem;
+    text-align: center;
+    line-height: 1.2;
+    white-space: nowrap; /* Prevents the title from wrapping to multiple lines */
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Main navigation block. */
+.nav {
+    flex-grow: 1; /* Allows the navigation to take available space */
+    display: flex;
+    justify-content: center; /* Centers the navigation list */
+}
+
+/* Unordered list for navigation items. */
+.nav__list {
+    display: flex;
+    justify-content: center;
+    gap: 2rem; /* Spacing between navigation items */
+    list-style: none; /* Removes default list bullets */
+    padding: 0;
+    margin: 0;
+}
+
+/* Styling for individual navigation links. */
+.nav__list li a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    white-space: nowrap; /* Prevents link text from wrapping */
+}
+
+/* Hamburger menu toggle for mobile navigation. Hidden by default. */
+.nav-toggle {
+    display: none; /* Hidden on larger screens */
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    position: absolute; /* Positioned relative to the .sticky-header */
+    top: 1rem; /* Default top, overridden in mobile */
+    right: 1rem;
+    /* z-index removed from global, will be added in mobile specific */
+}
+
+/* Responsive adjustments for navigation on medium-sized screens (e.g., tablets). */
+@media (max-width: 1024px) {
+    .nav__list {
+        gap: 1rem; /* Reduces gap between navigation items */
+    }
+}
+
+/* Responsive adjustments for mobile navigation (e.g., smartphones). */
+@media (max-width: 768px) {
+    /* Display the hamburger menu toggle on smaller screens. */
+    .nav-toggle {
+        display: block;
+        top: 26px; /* Vertically center with 60px profile image and 0.75rem header padding */
+        /* position: absolute and right: 1rem are inherited from global .nav-toggle rule */
+        z-index: 1001; /* Ensure it's above other elements */
+    }
+
+    /* Styles for the mobile navigation menu when it's closed. */
+    .nav {
+        display: none; /* Hidden by default, shown when .nav-open is added */
+        flex-direction: column; /* Stacks navigation items vertically */
+        position: absolute; /* Positioned relative to the .sticky-header */
+        top: 60px; /* Positioned below the header (assuming header height around 60px) */
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95); /* Semi-transparent background */
+        padding: 1rem 0;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Class to display the mobile navigation menu when toggled. */
+    .nav.nav-open {
+        display: flex;
+    }
+
+    /* Styling for the navigation list in mobile view. */
+    .nav__list {
+        flex-direction: column; /* Stacks items vertically */
+        align-items: center; /* Ensure items are centered */
+        gap: 0.75rem; /* Spacing between items */
+        text-align: center; /* Centers the text of navigation items */
+    }
+
+    .header-title {
+        white-space: normal; /* Allow header title to wrap on mobile */
+        font-size: 1.5rem; /* Optionally reduce font size if it helps */
+    }
+
+    .nav__list li a {
+        white-space: normal; /* Allow nav links to wrap if very long */
+    }
+
+    /* Adds padding to the work experience section on mobile for better spacing. */
+    .work-experience {
+        padding: 1rem; /* This seems fine to keep if it was intended */
+    }
+
+    /* Reduces footer font size on mobile for better fit. */
+    footer {
+        font-size: 0.9rem; /* This seems fine to keep */
+    }
+}
+
+/* Styling for the Hero (main introductory) section of the page. */
+.hero {
+    background: var(--primary-color);
+    color: white;
+    padding: 6rem 1rem 3rem; /* Generous padding: top, horizontal, bottom */
+    text-align: center;
+}
+
+/* Container for hero section content, using flexbox for alignment. */
+.hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Styling for the main image within the hero section. */
+.hero__image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+/* Container for Call-to-Action (CTA) buttons. */
+.cta-buttons {
+    display: flex;
+    gap: 1rem; /* Spacing between buttons */
+    margin-top: 1rem;
+}
+
+/* Base styling for buttons. */
+.btn {
+    background: var(--secondary-color);
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    transition: background 0.3s ease; /* Smooth background color transition on hover */
+}
+
+/* Hover effect for primary buttons. */
+.btn:hover {
+    background: #357ABD; /* Slightly darker shade of secondary color */
+}
+
+/* Styling for secondary buttons, providing an alternative visual. */
+.btn-secondary {
+    background: #444; /* Dark gray background */
+}
+
+/* Default styling for content sections. */
+/* Provides consistent padding, background, and shadow for distinct sections. */
+.section {
+    max-width: 800px; /* Limits the width of content sections for readability */
+    margin: var(--section-spacing) auto; /* Centers the section and adds vertical spacing */
+    padding: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling specific to the Work Experience section. */
+/* Uses flexbox to lay out experience entries. */
+.work-experience {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Spacing between individual experience cards */
+    max-width: 800px; /* Consistent with .section max-width */
+    margin: auto; /* Centers the section */
+}
+
+/* Card component styling, used for individual items like job experiences or project showcases. */
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease; /* Subtle hover effect */
+}
+
+/* Hover effect for cards, lifting them slightly. */
+.card:hover {
+    transform: translateY(-2px);
+}
+
+/* Styling for timeline-like UIs, often used for experience or education sections. */
+/* Creates a vertical line to connect timeline items. */
+.timeline {
+    position: relative;
+    padding-left: 2rem; /* Space for the timeline line and markers */
+    border-left: 2px solid var(--secondary-color); /* The main vertical timeline bar */
+}
+
+/* Individual item within a timeline. */
+.timeline-item {
+    margin-bottom: 1.5rem; /* Space between timeline entries */
+    padding-left: 1rem; /* Indentation for the content of the item */
+    position: relative; /* Establishes a positioning context for the ::before pseudo-element */
+}
+
+/* Circular marker for each timeline item, visually connecting it to the timeline bar. */
+.timeline-item::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    position: absolute;
+    left: -6px; /* Positions the marker halfway across the border-left of .timeline */
+    top: 0; /* Aligns the marker with the top of the timeline item content */
+}
+
+/* Skills Section */
+.skills {
+    display: grid;
+    /* Creates columns that are at least 120px wide, and will expand to fill available space. */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem; /* Spacing between skill items */
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* Styling for individual items within the Skills section. */
+.skill-item {
+    padding: 1rem;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for icons used within skill items. */
+.skill-icon {
+    font-size: 2rem; /* Icon size */
+    color: var(--secondary-color); /* Icon color, consistent with site accents */
+}
+
+/* Footer */
+footer {
+    background: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    margin-top: 2rem; /* Space above the footer */
+    font-size: 1rem;
+}
+
+/* Styling for links within the footer. */
+footer a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Hover effect for footer links. */
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Styles to ensure proper display of obfuscated email addresses. */
+/* Useful if JavaScript is used to construct email links to deter simple scrapers. */
+.email-container {
+    display: inline-flex; /* Allows parts of the email to sit side-by-side */
+    gap: 2px; /* Minimal gap between parts, if any */
+}
+
+.email-part {
+    display: inline-block; /* Ensures parts are treated as inline elements */
+}
+
+/* General performance optimizations for images. */
+img {
+    max-width: 100%; /* Ensures images are responsive and don't overflow their containers */
+    height: auto; /* Maintains aspect ratio when width is adjusted */
+    display: block; /* Removes extra space below inline images */
+}
+
+/* Styling for lazy-loaded images. Starts with opacity 0 to fade in. */
+.lazyload {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out; /* Smooth fade-in transition */
+}
+
+/* Styling for lazy-loaded images once they are loaded. */
+.lazyload.loaded {
+    opacity: 1;
+}
+
+/* Accessibility: Custom focus indicator for better visibility. */
+/* Applied to any element that receives focus. */
+:focus {
+    outline: 3px solid var(--secondary-color); /* Clear visual outline */
+    outline-offset: 2px; /* Small space between the element and the outline */
+}
+
+/* Accessibility: "Skip to content" link for keyboard navigation. */
+/* Hidden by default and becomes visible on focus. */
+.skip-link {
+    position: absolute;
+    top: -40px; /* Moves the link off-screen */
+    left: 0;
+    background: var(--secondary-color);
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    transition: top 0.3s; /* Smooth transition when appearing */
+}
+
+/* Makes the skip link visible when it receives focus. */
+.skip-link:focus {
+    top: 0; /* Brings the link into view */
+}
+
+/* General responsive design adjustments for smaller screens (e.g., mobile). */@media (max-width: 768px) {
+    /* Adjusts mobile navigation list to be vertical and centered. */
+    .nav__list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Centers text content in the hero section on mobile. */
+    .hero__content {
+        text-align: center;
+    }
+
+    /* Adds padding to the work experience section on mobile for better spacing. */
+    .work-experience {
+        padding: 1rem;
+    }
+
+    /* Reduces footer font size on mobile for better fit. */
+    footer {
+        font-size: 0.9rem;
+    }
+}
+
+/* Styling for the "Go to Top" button. */
+/* Appears in the bottom-right corner when the user scrolls down. */
+.go-to-top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+    opacity: 0; /* Hidden by default */
+    visibility: hidden; /* Hidden by default and from accessibility tree */
+    transition: opacity 0.3s, visibility 0.3s; /* Smooth fade-in/out transition */
+}
+
+/* Class added by JavaScript to show the "Go to Top" button. */
+.go-to-top-btn.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Hover effect for the "Go to Top" button. */
+.go-to-top-btn:hover {
+    background: #357ABD; /* Darkens the button background */
+}
+
+/* General styling for the main page content wrapper. */
+/* This class ensures consistent width and padding for the primary content area. */
+.page-content {
+    max-width: 1000px; /* Limits content width for readability on large screens */
+    margin: 0 auto; /* Centers the content block horizontally */
+    padding: 0 1rem; /* Horizontal padding to prevent content from touching screen edges */
+}
+
+/* Styles for the Certifications section to make it more compact */
+#certifications ul li .certification-details,
+#certifications ul li .certification-meta {
+    margin-top: 0.25rem; /* Small top margin */
+    margin-bottom: 0.25rem; /* Small bottom margin */
+    font-size: 0.9rem; /* Slightly smaller font for details */
+    color: #555; /* Slightly lighter text color for details */
+}
+
+#certifications ul li .certification-details {
+    margin-top: 0.35rem; /* A bit more space after the bold certification name */
+}
+
+#certifications ul li strong {
+    display: inline-block; /* Allows margin-bottom if needed, though not strictly necessary here */
+    margin-bottom: 0.1rem; /* Tiny space before the details line */
+}
+
+/* Styles for the "Recent Work Examples" section for more compact lists */
+#recent-work-examples .example-item h4 { /* Targets "Technologies Used:" heading */
+    margin-top: 1em;    /* Adjust space above "Technologies Used:" */
+    margin-bottom: 0.25em; /* Reduce space below "Technologies Used:" and before the list */
+}
+
+/* Hero Section Styles */
+.hero-section {
+    background-color: #212529; /* A common dark color, adjust if needed */
+    color: #ffffff;
+    padding: 4rem 1rem; /* Adjust padding as needed */
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 2.8rem; /* Adjust font size as needed */
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.hero-tagline {
+    font-size: 1.25rem; /* Adjust font size as needed */
+    font-weight: 300;
+    margin-bottom: 2rem; /* Space above the buttons */
+}
+
+.hero-section .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* Adds space between buttons if they are side-by-side */
+}
+
+.hero-section .cta-buttons .btn {
+    padding: 0.75rem 1.5rem; /* Ensure consistent button padding */
+    font-size: 1rem; /* Ensure consistent button font size */
+    margin: 0 0.5rem; /* Add some space between buttons */
+}
+
+/* You might already have .btn-primary defined. If not, or if you want to ensure its style: */
+.hero-section .btn-primary {
+    background-color: var(--secondary-color); /* Uses your existing secondary color for primary CTA */
+    border-color: var(--secondary-color);
+    color: white;
+}
+
+.hero-section .btn-primary:hover {
+    background-color: #357ABD; /* Darker shade, consistent with existing .btn:hover */
+    border-color: #357ABD;
+}

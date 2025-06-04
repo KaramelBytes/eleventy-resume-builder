@@ -1,0 +1,25 @@
+{#
+  Partial: Site Footer
+  Path: src/_includes/partials/footer.njk
+  Description: Renders the footer section of the website, typically containing contact information and copyright details.
+  Data: Uses `personal.linkedin` and `personal.email` from global data for contact links.
+#}
+<footer id="contact">
+    {# The container div centers the content and provides consistent padding. #}
+    <div class="container">
+        <p>
+            Ready to collaborate or have questions? 
+            {# 
+              Link to LinkedIn profile. 
+              `target="_blank"` opens the link in a new tab.
+              `rel="noopener noreferrer"` is a security measure for external links.
+            #}
+            <a href="https://www.linkedin.com/in/{{ personal.linkedin if personal and personal.linkedin else 'your-linkedin-profile' }}" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a> 
+            or drop me an email: 
+            {# Mailto link for direct email. #}
+            <a href="mailto:{{ personal.email if personal and personal.email else 'your.email@example.com' }}">{{ personal.email if personal and personal.email else 'your.email@example.com' }}</a>
+        </p>
+        {# Example: Add a copyright notice if desired #}
+        {# <p>&copy; {{ site.currentYear }} {{ personal.name if personal else "Your Name" }}. All rights reserved.</p> #}
+    </div>
+</footer>

@@ -1,0 +1,20 @@
+{#
+  Component: Education
+  Path: src/_includes/components/education.njk
+  Description: Renders the "Education" section, listing academic degrees and details.
+  Data: Expects data from `src/_data/education.js` (specifically `education.headline` and `education.degrees` array).
+  Filters: Uses `md | safe` to render Markdown content from data files.
+#}
+<section id="education">
+    <h2>{{ education.headline | md | safe }}</h2>
+    {# Loop through each degree in the education data #}
+    {% for item in education.degrees %}
+    <article class="degree-item">
+        <h3>{{ item.degree | md | safe }}</h3>
+        <p class="institution">{{ item.institution | md | safe }}</p>
+        <p class="date">{{ item.period | md | safe }}</p>
+        {# List any specific details or achievements for this degree #}
+        {{ item.details_markdown | md | safe }}
+    </article>
+    {% endfor %}
+</section> 

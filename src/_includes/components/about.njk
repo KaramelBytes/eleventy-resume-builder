@@ -1,0 +1,10 @@
+{# 
+  Component: About Me
+  Path: src/_includes/components/about.njk
+  Description: Renders the "About Me" section of the resume.
+  Data: Expects data from `src/_data/personal.js`.
+  Filters: Uses `md | safe` to render Markdown content from data files.
+#}
+<section id="about-me">
+    {{ personal.about_me_markdown | md | safe }}
+</section> 

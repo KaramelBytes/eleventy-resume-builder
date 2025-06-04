@@ -1,0 +1,31 @@
+{#
+  Component: Certifications
+  Path: src/_includes/components/certifications.njk
+  Description: Renders the "Certifications" section, listing relevant certifications.
+  Data: Expects data from `src/_data/certifications.js` (specifically `certifications.title` and `certifications.certifications` array).
+  Filters: Uses `md | safe` to render Markdown content from data files.
+#}
+<section id="certifications">
+    <h2>{{ certifications.title | md | safe }}</h2>
+    <ul>
+        {# Loop through each certification item and display its details #}
+        {% for cert in certifications.certifications %}
+        <li>
+            <strong>{{ cert.name | safe }}</strong>
+            <p class="certification-details">
+                {{- cert.issuer | safe -}}
+                {%- if cert.date %} | <em>{{ cert.date | safe }}</em>{% endif -%}
+            </p>
+            {% if cert.credential_id or (cert.credential_url and cert.credential_url != "#") %}
+            <p class="certification-meta">
+                {%- if cert.credential_id %}ID: {{ cert.credential_id | safe }}{% endif -%}
+                {%- if cert.credential_id and cert.credential_url and cert.credential_url != "#" %} | {% endif -%}
+                {%- if cert.credential_url and cert.credential_url != "#" -%}
+                    <a href="{{ cert.credential_url }}" target="_blank" rel="noopener noreferrer">View Credential</a>
+                {%- endif -%}
+            </p>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</section> 

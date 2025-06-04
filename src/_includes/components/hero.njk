@@ -1,0 +1,22 @@
+{# 
+  Component: Hero Section
+  Path: src/_includes/components/hero.njk
+  Description: Renders the main hero section with name, tagline, and CTA buttons.
+  Data: Expects `personal.hero_name`, `personal.hero_tagline`, `personal.resume_path` from global data.
+#}
+<section id="hero" class="hero-section bg-dark text-white text-center py-5">
+    <div class="container">
+        <h1 class="hero-title">{{ personal.hero_name | safe }}</h1>
+        <p class="hero-tagline lead mb-4">{{ personal.hero_tagline | safe }}</p>
+        <div class="cta-buttons">
+            {% if personal.resume_path %}
+                <a href="{{ personal.resume_path }}" class="btn btn-primary btn-lg mr-2" download>
+                    Download Resume
+                </a>
+            {% endif %}
+            <a href="#contact" class="btn btn-secondary btn-lg">
+                Contact Me
+            </a>
+        </div>
+    </div>
+</section> 

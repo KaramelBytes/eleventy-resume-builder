@@ -1,0 +1,19 @@
+{#
+  Component: Work Experience
+  Path: src/_includes/components/experience.njk
+  Description: Renders the "Work Experience" section, listing past jobs and responsibilities.
+  Data: Expects data from `src/_data/experience.js` (specifically `experience.headline` and `experience.jobs` array).
+  Filters: Uses `md | safe` to render Markdown content from data files.
+#}
+<section id="work-experience">
+    <h2>{{ experience.title | md | safe }}</h2>
+    {# Loop through each job in the work experience data #}
+    {% for job in experience.jobs %}
+    <article class="job">
+        <h3>{{ job.title | md | safe }}</h3>
+        <p class="date">{{ job.period | md | safe }}</p>
+        {# List key responsibilities or achievements for this job #}
+        {{ job.responsibilities_markdown | md | safe }}
+    </article>
+    {% endfor %}
+</section> 

@@ -1,0 +1,8 @@
+{# 
+  Component: Welcome Section Content
+  Path: src/_includes/components/welcome.njk
+  Description: Renders the introductory paragraph markdown.
+  Data: Expects data from `src/_data/welcome.js` (specifically `welcome.intro`).
+  Filters: Uses `md | safe` to render Markdown content from data files.
+#}
+{{ welcome.intro | md | safe }} 

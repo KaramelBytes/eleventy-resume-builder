@@ -1,0 +1,22 @@
+{#
+  Component: Recent Work Examples
+  Path: src/_includes/components/examples.njk
+  Description: Renders the "Recent Work Examples" section, showcasing projects or work samples.
+  Data: Expects data from `src/_data/examples.js` (specifically `examples.title` and `examples.projects` array).
+  Filters: Uses `md | safe` to render Markdown content from data files.
+#}
+<section id="recent-work-examples">
+    <h2>{{ examples.title | md | safe }}</h2>
+    {# Loop through each work example item #}
+    {% for item in examples.projects %}
+    <article class="example-item">
+        <h3>{{ item.name | md | safe }}</h3>
+        <p>{{ item.description_markdown | md | safe }}</p>
+        {# Conditionally render a list of key points if they exist for this example #}
+        {% if item.technologies_markdown and item.technologies_markdown.trim() != "" %}
+            <h4>Technologies Used:</h4>
+            {{ item.technologies_markdown | md | safe }}
+        {% endif %}
+    </article>
+    {% endfor %}
+</section> 

@@ -1,0 +1,26 @@
+{
+  "name": "eleventy-resume-template",
+  "version": "1.0.0",
+  "description": "A simple, data-driven, single-page resume website template built with Eleventy.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx eleventy --serve",
+    "build": "npx eleventy"
+  },
+  "keywords": [
+    "eleventy",
+    "resume",
+    "template",
+    "static site",
+    "portfolio"
+  ],
+  "author": "Your Name or Username",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-navigation": "^0.3.5",
+    "eleventy-plugin-robotstxt": "^1.0.0",
+    "markdown-it-anchor": "^9.2.0"
+  }
+}

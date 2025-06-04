@@ -1,0 +1,18 @@
+{#
+  Component: Skills and Expertise
+  Path: src/_includes/components/skills.njk
+  Description: Renders the "Skills and Expertise" section, organized by categories.
+  Data: Expects data from `src/_data/skills.js` (specifically `skills.headline` and `skills.categories` array).
+  Filters: Uses `md | safe` to render Markdown content from data files.
+#}
+<section id="skills-and-expertise">
+    <h2>{{ skills.title | md | safe }}</h2>
+    {# Loop through each skill category #}
+    {% for category in skills.categories %}
+    <div class="skill-category">
+        <h3>{{ category.name | md | safe }}</h3>
+        {# List individual skills within this category #}
+        {{ category.skills_markdown | md | safe }}
+    </div>
+    {% endfor %}
+</section> 

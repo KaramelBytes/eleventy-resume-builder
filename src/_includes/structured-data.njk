@@ -1,0 +1,47 @@
+{#
+  Partial: Structured Data (JSON-LD)
+  Path: src/_includes/structured-data.njk
+  Description: 
+    Outputs JSON-LD (JavaScript Object Notation for Linked Data) structured data, 
+    which helps search engines understand the content and context of the page.
+    This aids in richer search results (e.g., knowledge panels, rich snippets).
+  Schema: Uses Schema.org vocabulary, specifically the "Person" type for a personal resume/portfolio.
+  Customization: Most values are currently hardcoded for this specific portfolio. 
+                 For broader use, these should be populated dynamically using Eleventy global data or page-specific data.
+                 Example: `"url": "{{ site.url }}{{ page.url }}"`
+#}
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Your Name",
+        "jobTitle": "Your Job Title",
+        "url": "{{ site.url }}", {# Dynamically set from site data #}
+        "image": "/assets/images/profile.jpg", {# Should be an absolute URL to a representative image #}
+        "description": "{{ title }}", {# Page title, can be made more descriptive #}
+        "sameAs": [
+            "https://www.linkedin.com/in/yourname" {# Links to social profiles or other identifying URLs #}
+        ],
+        "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Your University or College"
+        },
+        "skills": [
+            "List Your Unique Skills Here",
+            "List Your Unique Skills Here",
+            "List Your Unique Skills Here",
+            "List Your Unique Skills Here",
+            "List Your Unique Skills Here",
+            "List Your Unique Skills Here",
+            "List Your Unique Skills Here"
+        ],
+        "workLocation": {
+            "@type": "Place",
+            "name": "Remote"
+        },
+        "hasOccupation": {
+            "@type": "Occupation",
+            "name": "List Your Occupation Here"
+        }
+    }
+</script>
